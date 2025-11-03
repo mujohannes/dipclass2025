@@ -10,6 +10,16 @@ $app = new App();
 $title = "Sign up to UniLibrary";
 $message = "Join our website";
 
+// handle POST request from the signup form
+if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
+    $username = $_POST["username"];
+    $email = $_POST["email"];
+    $password1 = $_POST["password"];
+    $password2 = $_POST["confirm-password"];
+    // initialise Account class
+    $account = new Account();
+    $signup = $account -> create($email,$password,$username,"Test","User");
+}
 
 
 // create a template loader
