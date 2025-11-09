@@ -18,7 +18,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
     $password2 = $_POST["confirm-password"];
     // initialise Account class
     $account = new Account();
-    $signup = $account -> create($email,$password,$username,"Test","User");
+    $signup = $account -> create($email,$password1,$username,"Test","User");
 }
 
 
