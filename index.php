@@ -9,6 +9,12 @@ $app = new App();
 
 $title = "Home Page";
 $message = "Browse our books";
+if( empty($_SESSION["username"]) ) {
+    $user = null;
+}
+else {
+    $user = $_SESSION["username"];
+}
 
 // create an instance of the book class
 $cls_book = new Book();
@@ -25,6 +31,7 @@ $template = $twig -> load('index.html.twig');
 echo $template -> render([
     'title' => $title,
     'message' => $message,
-    'books' => $books
+    'books' => $books,
+    'user' => $user
 ]);
 ?>
