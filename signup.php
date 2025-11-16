@@ -13,12 +13,14 @@ $message = "Join our website";
 // handle POST request from the signup form
 if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
     $username = $_POST["username"];
+    $first = $_POST["firstname"];
+    $last = $_POST["lastname"];
     $email = $_POST["email"];
     $password1 = $_POST["password"];
     $password2 = $_POST["confirm-password"];
     // initialise Account class
     $account = new Account();
-    $signup = $account -> create($email,$password1,$username,"Test","User");
+    $signup = $account -> create($email,$password1,$username,$first,$last);
 }
 
 

@@ -6,6 +6,8 @@ const btn = document.querySelector("#signup-button")
 // store form values in an object (for reference)
 let formValues = {
     username: "",
+    firstname: "",
+    lastName: "",
     email: "",
     password: "",
     confirmpassword: ""
@@ -36,6 +38,24 @@ form.addEventListener('input', function (event) {
             else {
                 toggleValid( element, true )
                 formValues.username = val
+            }
+            break
+        case "firstname": 
+            if(!val.match(/[\p{Letter}\p{Mark}]+/gu)) {
+                toggleValid( element, false )
+            }
+            else {
+                toggleValid( element, true )
+                formValues.firstname = val
+            }
+            break
+        case "lastname" :
+            if(!val.match(/[\p{Letter}\p{Mark}]+/gu)) {
+                toggleValid( element, false )
+            }
+            else {
+                toggleValid( element, true )
+                formValues.lastname = val
             }
             break
         case "email":
@@ -75,6 +95,8 @@ form.addEventListener('input', function (event) {
     }
     // check that all values have been entered
     if( formValues.username != "" && 
+        formValues.firstname != "" && 
+        formValues.lastname != "" && 
         formValues.email != "" &&
         formValues.password != "" &&
         formValues.confirmpassword == formValues.password
