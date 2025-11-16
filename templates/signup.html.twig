@@ -60,6 +60,17 @@
                         <button type="submit" class="btn btn-primary w-100" id="signup-button" disabled>Sign up</button>
                         <!-- <button type="reset">Reset</button> -->
                     </div>
+                    <!-- alert -->
+                    {% if success == true %}
+                    <div class="alert alert-success" role="alert">
+                        Sign up successful. Check out our 
+                        <a href="/"> books</a>
+                    </div>
+                    {% elseif success == false %}
+                    <div class="alert alert-danger" role="alert">
+                        Sign up unsuccessful
+                    </div>
+                    {% endif %}
                 </form>
             </div>
         </div>

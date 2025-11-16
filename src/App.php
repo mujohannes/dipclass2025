@@ -13,6 +13,14 @@ class App {
         $dotenv = Dotenv\Dotenv::createImmutable( $path );
         // load the .env configuration into $_ENV (super global)
         $dotenv -> load();
+        $this -> initSession();
+    }
+    private function initSession() {
+        // check if session doesn't already exist
+        if( session_status() == PHP_SESSION_NONE ) {
+            // enable session
+            session_start();
+        }
     }
     
 }
