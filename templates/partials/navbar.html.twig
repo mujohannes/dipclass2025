@@ -27,21 +27,27 @@
             {% endif %}
           </a>
             <ul class="dropdown-menu dropdown-menu-lg-end">
+              {% if user|length == 0 %}
               <li>
                 <a href="signup.php" class="dropdown-item">
                 Signup
                 </a>
               </li>
+              {% endif %}
+              {% if user|length == 0 %}
               <li>
                 <a href="/signin.php" class="dropdown-item">
                 Login
                 </a>
               </li>
+              {% endif %}
+              {% if user|length > 0 %}
               <li>
                 <a href="/logout.php" class="dropdown-item">
                 Signout
                 </a>
               </li>
+              {% endif %}
             </ul>
          </li>
       </ul>
