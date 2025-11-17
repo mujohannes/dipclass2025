@@ -21,10 +21,10 @@ else {
 if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
     $email = $_POST["email"];
     $password = $_POST["password"];
-   
     $account = new Account();
     $signin = $account -> login($email,$password);
     // check if signin is successful
+    print_r($signin);
     if( $signin ) {
         // success
         $success = true;

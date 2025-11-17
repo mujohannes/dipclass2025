@@ -74,6 +74,21 @@ class Account extends Database
                 while( $row = $result->fetch_assoc() ) {
                     array_push($account_data,$row);
                 }
+                if( count($account_data) == 0 ) {
+                    // account does not exist
+                    //return false;
+                }
+                $account = $account_data[0];
+                // check the password
+                if( password_verify($password,$account["Password"]) ) {
+                    //
+                    return $account;
+                }
+                else {
+                    // password does not match
+                    return false;
+                }
+                
             }
         }
         catch(Exception $e) {
@@ -81,22 +96,26 @@ class Account extends Database
             exit();
         }
 
-        // check account data
-        if( count($account_data) == 0 ) {
-            // account does not exist if the array length is 0
-            return false;
-        }
-        else {
-            // check the password
-            $account = $account_data[0];
-            if( !password_verify($password, $account["Password"] )) {
-                // password does not match the hash in database
-                return false;
-            }
-            else {
-                return $account;
-            }
-        }
+        //check account data
+        //$account = $account_data[0];
+       // print_r( $account );
+        // if( count($account_data) == 0 ) {
+        //     // account does not exist if the array length is 0
+        //     return false;
+        // }
+        // else {
+        //     // check the password
+        //     $account = $account_data[0];
+        //     if( !password_verify($password, $account["Password"] )) {
+        //         // password does not match the hash in database
+                
+        //         return false;
+        //     }
+        //     else {
 
+        //         return $account;
+        //     }
+        // }
+        //return true;
     }
 }
