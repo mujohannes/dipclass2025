@@ -45,14 +45,14 @@
                     <!-- alert -->
                     {% if success == true %}
                     <div class="alert alert-success" role="alert">
-                        Sign up successful. Check out our 
+                        Sign up successful. Check out our
                         <a href="/"> books</a>
                     </div>
-                    {% elseif success is null %} 
+                    {% elseif success is null %}
                     <div></div>
                     {% elseif success == false %}
                     <div class="alert alert-danger" role="alert">
-                        Sign up unsuccessful
+                        Sign up unsuccessful. {{response}}
                     </div>
                     {% endif %}
                 </form>

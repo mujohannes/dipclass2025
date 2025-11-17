@@ -10,6 +10,7 @@ $app = new App();
 $title = "Sign up to UniLibrary";
 $message = "Join our website";
 $success = null;
+$response = null;
 if( empty($_SESSION["username"]) ) {
     $user = null;
 }
@@ -27,9 +28,10 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
     $account = new Account();
     $signup = $account -> create($email,$password1,$username,"Test","User");
     // check if signup is successful
-    if( $signup == true ) {
+    if( $signup["success"] == true ) {
         // success
         $success = true;
+        $response = $signup["message"];
         $_SESSION["email"] = $email;
         $_SESSION["username"] = $username;
         // update the user variable
@@ -38,6 +40,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
     else {
         // failed
         $success = false;
+        $response = $signup["message"];
     }
 }
 
@@ -52,6 +55,7 @@ echo $template -> render([
     'title' => $title,
     'message' => $message,
     'success' => $success,
+    'response' => $response,
     'user' => $user
 ]);
 ?>

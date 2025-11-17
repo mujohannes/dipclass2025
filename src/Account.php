@@ -7,6 +7,8 @@ use Jm\Webproject\Database;
 
 class Account extends Database
 {
+    public $response = array();
+
     public function __construct()
     {
         // initialise the database connection
@@ -34,13 +36,17 @@ class Account extends Database
                 throw new Exception("Oops! Something is wrong");
             } else {
                 // account is created
-                return true;
+                $this -> response["success"] = true;
+                $this -> response["message"] = "Account is successfully created";
+                return $this -> response;
             }
         } catch (Exception $e) {
             // do something
-            echo $e->getMessage();
+            //echo $e->getMessage();
             // failure to create account
-            return false;
+            $this -> response["success"] = false;
+            $this -> response["message"] = $e -> getMessage();
+            return $this -> response;
         }
     }
 
