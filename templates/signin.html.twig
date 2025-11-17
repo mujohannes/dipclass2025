@@ -8,35 +8,15 @@
         <h2 class="text-center">{{message}}</h2>
         <div class="row">
             <div class="col-md-4 offset-md-4">
-                <form id="signup" class="mt-4" action="/signup.php" method="post" novalidate>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input name="username" type="text" class="form-control" id="username"
-                            placeholder="maximum 16 characters" minlength="3" maxlength="16">
-
-                    </div>
+                <form id="signup" class="mt-4" action="/signin.php" method="post" novalidate>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
                         <input name="email" type="email" class="form-control" id="email" placeholder="name@example.com">
-                        <div class="invalid-feedback">
-                            please enter a valid email address
-                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input name="password" type="password" class="form-control" id="password"
-                            placeholder="minimum 8 characters">
-                        <div class="invalid-feedback">
-                            password has to be at least 8 characters
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirm-password" class="form-label">Confirm Password</label>
-                        <input name="confirm-password" type="password" class="form-control" id="confirm-password"
-                            placeholder="confirm your password">
-                        <div class="invalid-feedback">
-                            passwords don't match
-                        </div>
+                            placeholder="your password">
                     </div>
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary w-100">Sign up</button>
@@ -45,21 +25,19 @@
                     <!-- alert -->
                     {% if success == true %}
                     <div class="alert alert-success" role="alert">
-                        Sign up successful. Check out our 
+                        Sign in successful. Check out our 
                         <a href="/"> books</a>
                     </div>
                     {% elseif success is null %} 
                     <div></div>
                     {% elseif success == false %}
                     <div class="alert alert-danger" role="alert">
-                        Sign up unsuccessful
+                        Sign in unsuccessful
                     </div>
                     {% endif %}
                 </form>
             </div>
         </div>
     </div>
-    <script src="/js/signup.js"></script>
 </body>
-
 </html>
