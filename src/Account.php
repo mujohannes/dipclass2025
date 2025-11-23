@@ -7,6 +7,8 @@ use Jm\Webproject\Database;
 
 class Account extends Database
 {
+    public $response = array();
+
     public function __construct()
     {
         // initialise the database connection
@@ -68,54 +70,28 @@ class Account extends Database
             if(!$statement -> execute()) {
                 throw new Exception("database error");
             }
+            // check if account exists
+            $result = $statement -> get_result();
+            if( $result -> num_rows == 0 ) {
+                throw new Exception("Account is inactive or does not exist");
+            }
+            // check password
+            $account = $result -> fetch_assoc();
+            if( !password_verify($password, $account["Password"]) ) {
+                throw new Exception("Invalid credentials");
+            }
             else {
-                $result = $statement -> get_result();
-                $account_data = array();
-                while( $row = $result->fetch_assoc() ) {
-                    array_push($account_data,$row);
-                }
-                if( count($account_data) == 0 ) {
-                    // account does not exist
-                    //return false;
-                }
-                $account = $account_data[0];
-                // check the password
-                if( password_verify($password,$account["Password"]) ) {
-                    //
-                    return $account;
-                }
-                else {
-                    // password does not match
-                    return false;
-                }
-                
+                // password matches
+                $this -> response["success"] = true;
+                $this -> response["message"] = "Login successful";
+                $this -> response["account"] = $account;
             }
         }
         catch(Exception $e) {
-            echo $e -> getMessage();
-            exit();
+           $this -> response["success"] = false;
+           $this -> response["message"] = $e -> getMessage();
         }
 
-        //check account data
-        //$account = $account_data[0];
-       // print_r( $account );
-        // if( count($account_data) == 0 ) {
-        //     // account does not exist if the array length is 0
-        //     return false;
-        // }
-        // else {
-        //     // check the password
-        //     $account = $account_data[0];
-        //     if( !password_verify($password, $account["Password"] )) {
-        //         // password does not match the hash in database
-                
-        //         return false;
-        //     }
-        //     else {
-
-        //         return $account;
-        //     }
-        // }
-        //return true;
+       return $this -> response;
     }
 }
