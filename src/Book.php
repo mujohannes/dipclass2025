@@ -64,4 +64,5 @@ class Book extends Database
         $book = $result -> fetch_assoc();
         return $book;
     }
+
 }

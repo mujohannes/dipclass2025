@@ -10,7 +10,9 @@ $app = new App();
 $title = "Sign in to UniLibrary";
 $message = "Sign in to your account";
 $success = null;
-$reponse = null;
+$response = null;
+$type = null;
+// if user is already logged in
 if( empty($_SESSION["username"]) ) {
     $user = null;
 }
@@ -20,20 +22,25 @@ else {
 
 // handle POST request from the sign in form
 if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
+    // get data from the form
     $email = $_POST["email"];
     $password = $_POST["password"];
+    // authenticate user using Account -> login 
     $account = new Account();
     $signin = $account -> login($email,$password);
     // check if signin is successful
     if( $signin["success"] == true ) {
+        // signin success, set variables for the display template
         $username = $signin["account"]["Username"];
         $type = $signin["account"]["Type"];
         // success
         $success = true;
         $_SESSION["email"] = $email;
         $_SESSION["username"] = $username;
+        $_SESSION["type"] = $type;
         // // update the user variable
         $user = $_SESSION["username"];
+        $response = $signin["message"];
     }
     else {
         // failed
@@ -54,6 +61,7 @@ echo $template -> render([
     'message' => $message,
     'success' => $success,
     'response' => $response,
-    'user' => $user
+    'user' => $user,
+    'type' => $type
 ]);
 ?>
