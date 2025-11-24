@@ -23,7 +23,7 @@ if( !empty($_SESSION["type"] ) ) {
     $type = $_SESSION["type"];
 }
 
-
+print_r($_SESSION);
 // create an instance of the book class
 $cls_book = new Book();
 

@@ -14,26 +14,26 @@ $success = null;
 $response = null;
 $user = null;
 $type = null;
-
+$account_id = null;
 // username
-if( !empty($_SESSION["username"]) ) {
+if (!empty($_SESSION["username"])) {
     $user = $_SESSION["username"];
 }
 
 // user type
-if( !empty($_SESSION["type"] ) ) {
+if (!empty($_SESSION["type"])) {
     $type = $_SESSION["type"];
 }
 // handle POST request from the sign in form
-if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // get data from the form
     $email = $_POST["email"];
     $password = $_POST["password"];
     // authenticate user
     $account = new Account();
-    $signin = $account -> login($email,$password);
+    $signin = $account->login($email, $password);
     // check if signin is successful
-    if( $signin["success"] == true ) {
+    if ($signin["success"] == true) {
         // success
         $success = true;
         $username = $signin["account"]["Username"];
@@ -44,10 +44,10 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
         $_SESSION["type"] = $type;
         $_SESSION["account_id"] = $signin["account"]["id"];
         // // update the user variable
-       $user = $username;
-       $response = $signin["message"];
-    }
-    else {
+        $user = $username;
+        $response = $signin["message"];
+        $account_id = $signin["account"]["id"];
+    } else {
         // failed
         $success = false;
         $response = $signin["message"];
@@ -57,16 +57,16 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
 
 // create a template loader
 $loader = new \Twig\Loader\FilesystemLoader('templates');
-$twig = new \Twig\Environment( $loader );
+$twig = new \Twig\Environment($loader);
 // load the template into memory
-$template = $twig -> load('signin.html.twig');
+$template = $twig->load('signin.html.twig');
 // add some variables for twig to render
-echo $template -> render([
+echo $template->render([
     'title' => $title,
     'message' => $message,
     'success' => $success,
     'user' => $user,
     'response' => $response,
-    'type' => $type
+    'type' => $type,
+    'account_id' => $account_id
 ]);
-?>

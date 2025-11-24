@@ -14,6 +14,7 @@ $success = null;
 $response = null;
 $type = null;
 $user = null;
+$account_id = null;
 // username
 if( !empty($_SESSION["username"]) ) {
     $user = $_SESSION["username"];
@@ -43,6 +44,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
         $_SESSION["type"] = 1;
         // update the user variable
         $user = $_SESSION["username"];
+        $account_id = $signup["account_id"];
     }
     else {
         // failed
@@ -64,6 +66,7 @@ echo $template -> render([
     'success' => $success,
     'response' => $response,
     'user' => $user,
-    'type' => $type
+    'type' => $type,
+    'account_id' => $account_id
 ]);
 ?>
