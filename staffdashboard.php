@@ -9,10 +9,10 @@ $app = new App();
 
 $title = "Staff Dashboard";
 $message = "Staff Dashboard";
-
+// print_r($_SESSION);
 // check if the user is authenticated
 // if not redirect to signin
-if( empty($_SESSION['email'] || empty($_SESSION['account_id']) ) ) {
+if( empty($_SESSION['email'] ) ) {
     header("location: /signin.php");
 }
 //
@@ -28,6 +28,11 @@ if( empty($_SESSION["type"] ) ) {
 }
 else {
     $type = $_SESSION["type"];
+}
+//redirect for the wrong type
+if( $type < 2 ) {
+    session_destroy();
+    header("location: /signin.php");
 }
 // get user loans
 $account_id = $_SESSION["account_id"];

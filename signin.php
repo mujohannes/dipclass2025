@@ -19,7 +19,10 @@ if( empty($_SESSION["username"]) ) {
 else {
     $user = $_SESSION["username"];
 }
-
+// set type 
+if( !empty($_SESSION['type']) ) {
+    $type = $_SESSION['type'];
+}
 // handle POST request from the sign in form
 if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
     // get data from the form
