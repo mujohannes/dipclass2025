@@ -15,6 +15,13 @@ $message = "User Dashboard";
 if( empty($_SESSION['email']) ) {
     header("location: /signin.php");
 }
+// user
+if( empty($_SESSION["username"]) ) {
+    $user = null;
+}
+else {
+    $user = $_SESSION["username"];
+}
 // user type
 if( empty($_SESSION["type"] ) ) {
     $type = null;
@@ -38,6 +45,7 @@ echo $template -> render([
     'title' => $title,
     'message' => $message,
     'userloans' => $user_loans,
-    'type' => $type
+    'type' => $type,
+    'user' => $user
 ]);
 ?>
