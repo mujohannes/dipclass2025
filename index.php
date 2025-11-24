@@ -9,11 +9,19 @@ $app = new App();
 
 $title = "Home Page";
 $message = "Browse our books";
+
 if( empty($_SESSION["username"]) ) {
     $user = null;
 }
 else {
     $user = $_SESSION["username"];
+}
+// user type
+if( empty($_SESSION["type"] ) ) {
+    $type = null;
+}
+else {
+    $type = $_SESSION["type"];
 }
 
 // create an instance of the book class
@@ -32,6 +40,7 @@ echo $template -> render([
     'title' => $title,
     'message' => $message,
     'books' => $books,
-    'user' => $user
+    'user' => $user,
+    'type' => $type
 ]);
 ?>

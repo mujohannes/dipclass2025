@@ -16,6 +16,14 @@ else {
     $user = $_SESSION["username"];
 }
 
+// user type
+if( empty($_SESSION["type"] ) ) {
+    $type = null;
+}
+else {
+    $type = $_SESSION["type"];
+}
+
 // create an instance of the book class
 $cls_book = new Book();
 
@@ -33,7 +41,8 @@ if (isset($_GET["id"])) {
     echo $template->render([
         'title' => $book_detail["Title"],
         'book' => $book_detail,
-        'user' => $user
+        'user' => $user,
+        'type' => $type
     ]);
 } else {
     header("location: index.php");

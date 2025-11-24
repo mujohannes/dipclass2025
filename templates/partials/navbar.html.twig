@@ -12,6 +12,15 @@
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
         </li>
+        {% if type == 1 %}
+        <li class="nav-item">
+          <a class="nav-link" href="/userdashboard.php">Dashboard</a>
+        </li>
+        {% elseif type == 2 %}
+        <li class="nav-item">
+          <a class="nav-link" href="/staffdashboard.php">Dashboard</a>
+        </li>
+        {% endif %}
       </ul>
       <form class="d-flex" role="search" method="get" action="search.php">
         <input name="query" class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>

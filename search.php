@@ -7,6 +7,14 @@ use Jm\Webproject\Search;
 // create an app object based on App class
 $app = new App();
 
+// user type
+if( empty($_SESSION["type"] ) ) {
+    $type = null;
+}
+else {
+    $type = $_SESSION["type"];
+}
+
 if( isset($_GET["query"]) ) {
    $keyword = $_GET["query"];
    // initialise search class

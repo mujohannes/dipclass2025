@@ -15,6 +15,13 @@ $message = "User Dashboard";
 if( empty($_SESSION['email']) ) {
     header("location: /signin.php");
 }
+// user type
+if( empty($_SESSION["type"] ) ) {
+    $type = null;
+}
+else {
+    $type = $_SESSION["type"];
+}
 // get user loans
 $account_id = $_SESSION["account_id"];
 // initialise loan class
@@ -30,6 +37,7 @@ $template = $twig -> load('userdashboard.html.twig');
 echo $template -> render([
     'title' => $title,
     'message' => $message,
-    'userloans' => $user_loans
+    'userloans' => $user_loans,
+    'type' => $type
 ]);
 ?>
