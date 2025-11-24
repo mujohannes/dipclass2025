@@ -9,82 +9,80 @@ class Loan extends Database {
     {
         parent::__construct();
     }
-    // get all loans
-    public function getLoans() {
-        
-    }
-    // borrow book using it's id
-    public function borrow($book_id,$account_id) {
+
+    public function getLoansByAccount($account_id) {
         $query = "
-        INSERT INTO Loan( BookId, AccountId, BorrowDate,ReturnDate) 
-        VALUES
-        (?,?,NOW(),NULL)
+            SELECT  
+            LoanId,
+            BookId,
+            BorrowDate,
+            DueDate,
+            ReturnDate,
+            Title
+            FROM Loan 
+            INNER JOIN Book
+            ON Loan.BookId = Book.id
+            WHERE AccountId = ?
         ";
         $statement = $this -> connection -> prepare($query);
-        $statement -> bind_param("ii", $book_id, $account_id );
+        $statement -> bind_param("i",$account_id);
         try {
             if( !$statement -> execute() ) {
-                // failed to create loan
-                throw new Exception("failed to create loan");
-            }
-            else {
-                // loan created
-                return true;
-            }
-        } catch( Exception $e) {
-            return false;
-        }
-    }
-    public function isBookOnLoan($book_id) {
-        $query = "
-        SELECT
-        id, BookId
-        FROM Loan WHERE ReturnDate IS NULL
-        ";
-        $statement = $this -> connection -> prepare($query);
-        $statement -> bind_param("i", $book_id );
-        try {
-            if( !$statement -> execute() ) {
-                // check failed
-                throw new Exception("status check failed");
+                throw new Exception("Database error");
             }
             else {
                 $result = $statement -> get_result();
-                if( $result -> num_rows > 0 ) {
-                    // book is out on loan
-                    return true;
+                $user_loans = array();
+                while( $row = $result -> fetch_assoc() ) {
+                    array_push($user_loans, $row);
                 }
-                else {
-                    // book is available
-                    return false;
-                }
+                return $user_loans;
             }
-        } catch( Exception $e) {
-            echo $e -> getMessage();
-            exit();
         }
-    }
-
-    public function returnBook($loan_id,$book_id) {
-        $query = "
-        UPDATE Loan
-        SET ReturnDate = NOW()
-        WHERE id=$loan_id AND BookId = $book_id
-        ";
-        $statement = $this -> connection -> prepare($query);
-        $statement -> bind_param("ii", $loan_id, $book_id );
-        try {
-            if( !$statement -> execute() ) {
-                // check failed
-                throw new Exception("return failed");
-            }
-            else {
-                return true;
-            }
-        } catch( Exception $e) {
+        catch(Exception $e) {
+            echo $e -> getMessage();
             return false;
         }
     }
 
+    public function getOutstandingLoans () {
+        // get all the books that have not been returned
+        $query = "
+        SELECT
+        LoanId,
+        BookId,
+        AccountId,
+        BorrowDate,
+        DueDate,
+        Title,
+        Username,
+        Email,
+        ReturnDate
+        FROM Loan 
+        INNER JOIN Book
+        ON Loan.BookId = Book.id
+        INNER JOIN Account
+        ON Loan.AccountId = Account.id
+        WHERE ReturnDate IS NULL
+        ";
+
+        $statement = $this -> connection -> prepare($query);
+        try {
+            if( !$statement -> execute() ) {
+                throw new Exception("Database error");
+            }
+            else {
+                $result = $statement -> get_result();
+                $loans = array();
+                while( $row = $result -> fetch_assoc() ) {
+                    array_push( $loans, $row );
+                }
+                return $loans;
+            }
+        } catch(Exception $e) {
+            echo $e -> getMessage();
+            return false;
+        }
+    }
 }
 ?>

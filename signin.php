@@ -12,7 +12,7 @@ $message = "Sign in to your account";
 $success = null;
 $response = null;
 $type = null;
-// if user is already logged in
+
 if( empty($_SESSION["username"]) ) {
     $user = null;
 }
@@ -25,22 +25,23 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
     // get data from the form
     $email = $_POST["email"];
     $password = $_POST["password"];
-    // authenticate user using Account -> login 
+    // authenticate user
     $account = new Account();
     $signin = $account -> login($email,$password);
     // check if signin is successful
     if( $signin["success"] == true ) {
-        // signin success, set variables for the display template
-        $username = $signin["account"]["Username"];
-        $type = $signin["account"]["Type"];
         // success
         $success = true;
+        $username = $signin["account"]["Username"];
+        $type = $signin["account"]["Type"];
+
         $_SESSION["email"] = $email;
         $_SESSION["username"] = $username;
         $_SESSION["type"] = $type;
+        $_SESSION["account_id"] = $signin["account"]["id"];
         // // update the user variable
-        $user = $_SESSION["username"];
-        $response = $signin["message"];
+       $user = $username;
+       $response = $signin["message"];
     }
     else {
         // failed
@@ -60,8 +61,8 @@ echo $template -> render([
     'title' => $title,
     'message' => $message,
     'success' => $success,
-    'response' => $response,
     'user' => $user,
+    'response' => $response,
     'type' => $type
 ]);
 ?>

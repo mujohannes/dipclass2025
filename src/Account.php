@@ -77,25 +77,25 @@ class Account extends Database
             // check if account exists
             $result = $statement -> get_result();
             if( $result -> num_rows == 0 ) {
-                throw new Exception("Account does not exist");
+                throw new Exception("Account is inactive or does not exist");
             }
-            $account = $result -> fetch_assoc();
             // check password
-            if( !password_verify( $password, $account["Password"])) {
-                echo $email . " " . $password;
+            $account = $result -> fetch_assoc();
+            if( !password_verify($password, $account["Password"]) ) {
                 throw new Exception("Invalid credentials");
             }
             else {
-                // password match
+                // password matches
                 $this -> response["success"] = true;
                 $this -> response["message"] = "Login successful";
                 $this -> response["account"] = $account;
             }
         }
-        catch( Exception $e ) {
-            $this -> response["success"] = false;
-            $this -> response["message"] = $e -> getMessage();
+        catch(Exception $e) {
+           $this -> response["success"] = false;
+           $this -> response["message"] = $e -> getMessage();
         }
-        return $this -> response;
+
+       return $this -> response;
     }
 }
