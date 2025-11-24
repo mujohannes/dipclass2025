@@ -7,21 +7,22 @@ use Jm\Webproject\Loan;
 // create an app object based on App class
 $app = new App();
 
+// variables for the page
 $title = "User Dashboard";
 $message = "User Dashboard";
+$type = null;
+$user = null;
 
 // check if the user is authenticated
 // if not redirect to signin
 if( empty($_SESSION['email']) ) {
     header("location: /signin.php");
 }
-// user
-if( empty($_SESSION["username"]) ) {
-    $user = null;
-}
-else {
+// username
+if( !empty($_SESSION["username"]) ) {
     $user = $_SESSION["username"];
 }
+
 // user type
 if( !empty($_SESSION["type"] ) ) {
     $type = $_SESSION["type"];

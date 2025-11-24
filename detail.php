@@ -7,14 +7,14 @@ use Jm\Webproject\Book;
 // create an app object based on App class
 $app = new App();
 
+// variables for the page
 $title = "Detail Page";
 $message = "Hello there";
 $type = null;
+$user = null;
 
-if( empty($_SESSION["username"]) ) {
-    $user = null;
-}
-else {
+// username
+if( !empty($_SESSION["username"]) ) {
     $user = $_SESSION["username"];
 }
 

@@ -7,17 +7,18 @@ use Jm\Webproject\Account;
 // create an app object based on App class
 $app = new App();
 
+// variables for the page
 $title = "Sign up to UniLibrary";
 $message = "Join our website";
 $success = null;
 $response = null;
 $type = null;
-if( empty($_SESSION["username"]) ) {
-    $user = null;
-}
-else {
+$user = null;
+// username
+if( !empty($_SESSION["username"]) ) {
     $user = $_SESSION["username"];
 }
+
 // user type
 if( !empty($_SESSION["type"] ) ) {
     $type = $_SESSION["type"];
