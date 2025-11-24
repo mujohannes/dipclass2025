@@ -38,6 +38,7 @@ class Account extends Database
                 // account is created
                 $this -> response["success"] = true;
                 $this -> response["message"] = "Account is successfully created";
+                $this -> response["account_id"] = $this -> connection -> insert_id;
                 return $this -> response;
             }
         } catch (Exception $e) {

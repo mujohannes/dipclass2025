@@ -40,6 +40,8 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
         $response = $signup["message"];
         $_SESSION["email"] = $email;
         $_SESSION["username"] = $username;
+        $_SESSION["account_id"] = $signup["account_id"];
+        $_SESSION["type"] = 1;
         // update the user variable
         $user = $_SESSION["username"];
     }
