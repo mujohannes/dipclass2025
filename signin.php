@@ -37,6 +37,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
         $_SESSION["email"] = $email;
         $_SESSION["username"] = $username;
         $_SESSION["type"] = $type;
+        $_SESSION["account_id"] = $signin["account"]["id"];
         // // update the user variable
        $user = $username;
        $response = $signin["message"];
