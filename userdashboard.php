@@ -23,10 +23,7 @@ else {
     $user = $_SESSION["username"];
 }
 // user type
-if( empty($_SESSION["type"] ) ) {
-    $type = null;
-}
-else {
+if( !empty($_SESSION["type"] ) ) {
     $type = $_SESSION["type"];
 }
 // get user loans

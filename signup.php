@@ -11,11 +11,16 @@ $title = "Sign up to UniLibrary";
 $message = "Join our website";
 $success = null;
 $response = null;
+$type = null;
 if( empty($_SESSION["username"]) ) {
     $user = null;
 }
 else {
     $user = $_SESSION["username"];
+}
+// user type
+if( !empty($_SESSION["type"] ) ) {
+    $type = $_SESSION["type"];
 }
 
 // handle POST request from the signup form
@@ -56,6 +61,7 @@ echo $template -> render([
     'message' => $message,
     'success' => $success,
     'response' => $response,
-    'user' => $user
+    'user' => $user,
+    'type' => $type
 ]);
 ?>

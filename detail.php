@@ -9,6 +9,8 @@ $app = new App();
 
 $title = "Detail Page";
 $message = "Hello there";
+$type = null;
+
 if( empty($_SESSION["username"]) ) {
     $user = null;
 }
@@ -17,12 +19,10 @@ else {
 }
 
 // user type
-if( empty($_SESSION["type"] ) ) {
-    $type = null;
-}
-else {
+if( !empty($_SESSION["type"] ) ) {
     $type = $_SESSION["type"];
 }
+
 
 // create an instance of the book class
 $cls_book = new Book();

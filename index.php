@@ -9,6 +9,7 @@ $app = new App();
 
 $title = "Home Page";
 $message = "Browse our books";
+$type = null;
 
 if( empty($_SESSION["username"]) ) {
     $user = null;
@@ -17,10 +18,8 @@ else {
     $user = $_SESSION["username"];
 }
 // user type
-if( empty($_SESSION["type"] ) ) {
-    $type = null;
-}
-else {
+// user type
+if( !empty($_SESSION["type"] ) ) {
     $type = $_SESSION["type"];
 }
 
