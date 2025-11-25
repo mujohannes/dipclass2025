@@ -5,18 +5,29 @@
 <body>
     {% include 'partials/navbar.html.twig' %}
     <div class="container">
-        
-       <div class="row">
-        <div class="col-12 my-4">
-             <h1 class="fs-3 text-center">{{book.Title}}</h1>
+
+        <div class="row">
+            <div class="col-12 my-4">
+                <h1 class="fs-3 text-center">{{book.Title}}</h1>
+            </div>
+            <div class="col-4">
+                <img class="img-fluid" src="images/{{book.Cover}}">
+            </div>
+            <div class="col-8">
+                <p>{{book.Description}}</p>
+                <p><span class="text-uppercase">ISBN</span> {{book.ISBN}} {{book.ISBN13}}</p>
+                <p><span class="text-uppercase">Author</span> {{book.Author}}</p>
+                {% if account_id %}
+                <form method="get" action="/detail.php">
+                    <input type="hidden" name="book_id" value="{{book.id}}">
+                    <input type="hidden" name="account_id" value="{{account_id}}">
+                    <button class="btn btn-primary">
+                        Borrow this book
+                    </button>
+                </form>
+                {% endif %}
+            </div>
         </div>
-        <div class="col-4">
-            <img class="img-fluid" src="images/{{book.Cover}}">
-        </div>
-        <div class="col-8">
-           <p>{{book.Description}}</p>
-        </div>
-       </div>
     </div>
 </body>
 

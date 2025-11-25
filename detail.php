@@ -12,6 +12,7 @@ $title = "Detail Page";
 $message = "Hello there";
 $type = null;
 $user = null;
+$account_id = null;
 
 // username
 if( !empty($_SESSION["username"]) ) {
@@ -22,8 +23,11 @@ if( !empty($_SESSION["username"]) ) {
 if( !empty($_SESSION["type"] ) ) {
     $type = $_SESSION["type"];
 }
+// account id
+if(!empty($_SESSION['account_id'])) {
+    $account_id = $_SESSION["account_id"];
+}
 
-print_r($_SESSION);
 // create an instance of the book class
 $cls_book = new Book();
 
@@ -42,7 +46,8 @@ if (isset($_GET["id"])) {
         'title' => $book_detail["Title"],
         'book' => $book_detail,
         'user' => $user,
-        'type' => $type
+        'type' => $type,
+        'account_id' => $account_id
     ]);
 } else {
     header("location: index.php");
