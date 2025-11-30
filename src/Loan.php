@@ -84,5 +84,23 @@ class Loan extends Database {
             return false;
         }
     }
-}
+
+    public function returnBook($loan_id) {
+        $query = "
+        UPDATE Loan Set ReturnDate=NOW() WHERE LoanId = ?
+        ";
+        $statement = $this -> connection -> prepare($query);
+        $statement -> bind_param("i", $loan_id );
+        try {
+            if( !$statement -> execute() ) {
+                throw new Exception("Database error");
+            }
+            else {
+                return true;
+            }
+        } catch(Exception $e ) {
+            return false;
+        }
+    }
+} 
 ?>
