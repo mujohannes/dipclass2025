@@ -3,6 +3,7 @@ require('vendor/autoload.php');
 
 use Jm\Webproject\App;
 use Jm\Webproject\Book;
+use Jm\Webproject\Loan;
 
 // create an app object based on App class
 $app = new App();
@@ -26,6 +27,15 @@ if( !empty($_SESSION["type"] ) ) {
 // account id
 if(!empty($_SESSION['account_id'])) {
     $account_id = $_SESSION["account_id"];
+}
+// check if book is being borrowed
+if( $_SERVER['REQUEST_METHOD'] == "POST") {
+    $book_id = $_POST['book_id'];
+    $account_id = $_POST['account_id'];
+    // initialise Loan class
+    $loan = new Loan();
+    $borrow = $loan -> borrow($book_id,$account_id);
+    
 }
 
 // create an instance of the book class
@@ -52,3 +62,6 @@ if (isset($_GET["id"])) {
 } else {
     header("location: index.php");
 }
+
+
+?>

@@ -18,7 +18,7 @@
                 <p><span class="text-uppercase">ISBN</span> {{book.ISBN}} {{book.ISBN13}}</p>
                 <p><span class="text-uppercase">Author</span> {{book.Author}}</p>
                 {% if account_id %}
-                <form method="get" action="/detail.php">
+                <form method="post" action="/detail.php?id={{book.id}}">
                     <input type="hidden" name="book_id" value="{{book.id}}">
                     <input type="hidden" name="account_id" value="{{account_id}}">
                     <button class="btn btn-primary">
