@@ -5,19 +5,24 @@
 <body>
     {% include 'partials/navbar.html.twig' %}
     <div class="container">
-        <h2>{{message}}</h2>
+        <h2>{{message}} for {{keywords}} </h2>
         <div class="row">
-            {% for item in books %}
-            <div class="col-md-3">
-                <div class="card my-2">
-                    <img style="aspect-ratio:3/4; object-fit:cover;" class="w-100 img-fluid border card-img-top"
+            {% for item in search %}
+            <div class="col card my-2">
+                <div class="row card-body">
+                    <div class="col-2">
+                        <img style="aspect-ratio:3/4; object-fit:cover;" class="w-100 img-fluid border card-img-top"
                         src="images/{{item.Cover}}">
-                    <div class="card-body">
-                        <h4 style="min-height: 4em;" class="fs-6">
+                    </div>
+                    <div class="col-8">
+                        <h4>
                             {{ item.Title }}
                         </h4>
-
-                        <a class="btn btn-primary w-100" href="detail.php?id={{item.id}}">
+                        <h5>By {{ item.Author }} </h5>
+                        <p>{{ item.Description }}</p>
+                    </div>
+                    <div class="col d-flex flex-column justify-content-end align-items-end">
+                         <a class="btn btn-primary" href="detail.php?id={{item.id}}">
                             More Detail
                         </a>
                     </div>
