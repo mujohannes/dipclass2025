@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'partials/head.html.twig' %}
+
+<body>
+    {% include 'partials/navbar.html.twig' %}
+    <div class="container">
+        <h2>{{message}}</h2>
+        <div class="row">
+            {% for item in books %}
+            <div class="col-md-3">
+                <div class="card my-2">
+                    <img style="aspect-ratio:3/4; object-fit:cover;" class="w-100 img-fluid border card-img-top"
+                        src="images/{{item.Cover}}">
+                    <div class="card-body">
+                        <h4 style="min-height: 4em;" class="fs-6">
+                            {{ item.Title }}
+                        </h4>
+
+                        <a class="btn btn-primary w-100" href="detail.php?id={{item.id}}">
+                            More Detail
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+
+</html>
