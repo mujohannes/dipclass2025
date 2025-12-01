@@ -12,6 +12,7 @@ $title = "Home Page";
 $message = "Browse our books";
 $type = null;
 $user = null;
+$account_id = null;
 
 // username
 if( !empty($_SESSION["username"]) ) {
@@ -22,7 +23,10 @@ if( !empty($_SESSION["username"]) ) {
 if( !empty($_SESSION["type"] ) ) {
     $type = $_SESSION["type"];
 }
-
+// account id
+if(!empty($_SESSION['account_id'])) {
+    $account_id = $_SESSION["account_id"];
+}
 // create an instance of the book class
 $cls_book = new Book();
 $books = $cls_book -> getBooks();
@@ -40,6 +44,7 @@ echo $template -> render([
     'message' => $message,
     'books' => $books,
     'user' => $user,
-    'type' => $type
+    'type' => $type,
+    'account_id' => $account_id
 ]);
 ?>
