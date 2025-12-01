@@ -28,6 +28,23 @@
                 {% endif %}
             </div>
         </div>
+        {% if type == 2 %}
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-8">
+                <h3>Edit book details</h3>
+                <form method="post" action="/bookedit.php">
+                    <div class="mb-3">
+                        <label for="title">Book Title</label>
+                        <input type="text" id="title" name="title" class="form-control" value="{{book.Title}}">
+                        <input type="hidden" name="origin" value="/detail.php?id={{book.id}}">
+                        <input type="hidden" name="book_id" value="{{book.id}}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </body>
 

@@ -65,4 +65,23 @@ class Book extends Database
         return $book;
     }
 
+    public function updateBook($book_id,$title) {
+        $query = "
+        UPDATE Book SET Title=? WHERE id = ?
+        ";
+        $statement = $this -> connection -> prepare($query);
+        $statement -> bind_param("si",$title,$book_id);
+        try{
+            if( !$statement -> execute() ) {
+                throw new Exception("Database error");
+            }
+            else {
+                return true;
+            }
+        } catch(Exception $e) {
+            return false;
+            echo $e -> getMessage();
+        }
+    }
+
 }

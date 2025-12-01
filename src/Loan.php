@@ -23,6 +23,7 @@ class Loan extends Database {
             INNER JOIN Book
             ON Loan.BookId = Book.id
             WHERE AccountId = ?
+            AND ReturnDate IS NULL
         ";
         $statement = $this -> connection -> prepare($query);
         $statement -> bind_param("i",$account_id);

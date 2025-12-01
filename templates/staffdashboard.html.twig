@@ -24,7 +24,10 @@
                             <td>{{book.BorrowDate | date("l d F Y")}}</td>
                             <td>{{book.DueDate | date("l d F Y")}}</td>
                             <td>
-                                <button class="btn btn-primary" type="submit">Mark as returned</button>
+                                <form method="post" action="/staffdashboard.php">
+                                    <input type="hidden" name="loan_id" value="{{book.LoanId}}">
+                                    <button class="btn btn-primary" type="submit">Mark as returned</button>
+                                </form>
                             </td>
                         </tr>
                         {% endfor %}

@@ -33,10 +33,16 @@ if( $type < 2 ) {
     session_destroy();
     header("location: /signin.php");
 }
+
 // get user loans
 $account_id = $_SESSION["account_id"];
 // initialise loan class
 $loan = new Loan();
+// check if book is being returned
+if( $_SERVER['REQUEST_METHOD'] == 'POST') {
+    $loan_id = $_POST['loan_id'];
+    $return = $loan -> returnBook($loan_id);
+}
 $user_loans = $loan -> getOutstandingLoans();
 
 // create a template loader
